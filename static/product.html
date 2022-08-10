@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ProductAdmin</title>
+	</head>
+	<body>
+		<h1>Add product to database</h1>
+		<form id="sendData">
+			<input
+				type="text"
+				autocomplete="off"
+				id="prodName"
+				placeholder="Product Name"
+			/>
+			<br /><input
+				type="text"
+				autocomplete="off"
+				id="category"
+				placeholder="Category"
+			/>
+			<br /><input
+				type="number"
+				autocomplete="off"
+				id="price"
+				placeholder="Price"
+			/>
+			<br /><input
+				type="number"
+				autocomplete="off"
+				id="quantity"
+				placeholder="Quantity available"
+			/>
+			<br /><input
+				type="text"
+				autocomplete="off"
+				id="image"
+				placeholder="Image link"
+			/>
+			<br /><input
+				type="text"
+				autocomplete="off"
+				id="desciption"
+				placeholder="Product desciption"
+			/>
+			<br /><input type="submit" value="Submit Form" />
+		</form>
+
+		<script>
+			const form = document.getElementById("sendData");
+			form.addEventListener("submit", createProduct);
+
+			async function createProduct(event) {
+				event.preventDefault();
+				const prodName = document.getElementById("prodName").value;
+				const category = document.getElementById("category").value;
+				const price = document.getElementById("price").value;
+				const quantity = document.getElementById("quantity").value;
+				const imgUrl = document.getElementById("image").value;
+				const desciption = document.getElementById("desciption").value;
+				// console.log(prodName, desciption);
+				const result = await fetch("/api/products", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						prodName,
+						category,
+						price,
+						quantity,
+						imgUrl,
+						desciption,
+					}),
+				}).then((res) => res.json());
+				console.log(result);
+				if (result.status === "ok") {
+					alert("Success");
+				} else {
+					alert(result.error);
+				}
+			}
+		</script>
+	</body>
+</html>
