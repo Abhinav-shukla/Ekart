@@ -27,7 +27,11 @@ exports.loginUser = async (req, res) => {
 		return res.status(200).json({
 			status: "ok",
 			message: "Logged in successfully",
-			data: { token },
+			data:{
+				user: user.uname,
+				email: user.uemail
+			},
+			JWT_token: { token },
 		});
 	}
 

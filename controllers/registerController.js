@@ -2,8 +2,9 @@ const User = require("./../model/user");
 
 exports.registerUser = async (req, res) => {
 	const {
-		username: uname,
-		email: uemail,
+		name: uname,
+		emailId: uemail,
+		phoneNumber: phoneNumber,
 		password: plainTextPassword,
 	} = req.body;
 	// const regex = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
@@ -33,6 +34,7 @@ exports.registerUser = async (req, res) => {
 		const res = await User.create({
 			uname,
 			uemail,
+			phoneNumber,
 			upassword,
 		});
 		console.log("User created successfully: ", res);
